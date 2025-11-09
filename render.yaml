@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: personal-emergent-backend
+    runtime: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn main:app --host 0.0.0.0 --port 10000"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11
+    plan: free
+    rootDir: backend
+
+  - type: web
+    name: personal-emergent-frontend
+    runtime: node
+    buildCommand: "npm install && npm run build"
+    startCommand: "npm run preview -- --host 0.0.0.0 --port 4173"
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+    plan: free
+    rootDir: frontend
+    autoDeploy: true
